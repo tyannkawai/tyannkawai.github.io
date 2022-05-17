@@ -10,10 +10,12 @@
   <button onclick="keisann()" type="button" name="button">計算する</button>
     <script type="text/javascript">
       function keisann() {
-      var prompt_a = prompt("一つ目の数を入れてください");
-      var prompt_b = prompt("二つ目の数を入れてください");
 
-      var result = parseInt(prompt_a)  + parseInt(prompt_b);
+      var element1 = document.getElementById('int1') ;
+      var element2 = document.getElementById('int2');
+
+
+      var result = parseInt(element1)  + parseInt(element2);
 
       alert(result);
     }
