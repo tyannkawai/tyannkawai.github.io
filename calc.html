@@ -8,6 +8,8 @@
   <input id="int1" type="text" name="" value="">
   <input id="int2" type="text" name="" value="">
   <button onclick="keisann()" type="button" name="button">計算する</button>
+  計算結果:
+  <p id="result"></p>
     <script type="text/javascript">
       function keisann() {
 
@@ -17,7 +19,10 @@
 
       var result = parseInt(element1.value)  + parseInt(element2.value);
 
-      alert(result);
+      var result_text = document.getElementById('result');
+      result_text.textcontent = result;
+      
+
     }
     </script>
   </body>
