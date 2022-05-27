@@ -6,22 +6,39 @@
   </head>
   <body>
   <script type="text/javascript">
-    count = 0;
+  /*きなこもちのカウンタ*/
+  let ls_count = localStorage.getItem("ls_count");
+  if (ls_count) {
+    count = parseInt(ls_count);
+  }else {
+    count=0;
+  }
+  setInterval(save_action,1000);
+  function save_action() {
+    console.log(count);
+    localStorage.setItem("ls_count",count);
+  }
+
+
+
     kyuubi_count = 0;
     yamori_count = 0;
     ginnyuusizi_count = 0;
 
 
     /*画面更新処理*/
-    setInterval(screen_update)
+    setInterval(screen_update,100)
     function screen_update(){
       span = document.getElementById('cookie_count');
       span.textContent = count;
     }
 
+    function autoCountUp(num) {
+      count = count + num;
+    }
+
     function cookie_click(){
       count++;
-      span.textContent = count;
     }
     function kyuubi(){
       if (count >= 100) {
@@ -30,10 +47,6 @@
         kyuubi_count++;
         setInterval(autoCountUp,1000,2);
       }
-      setInterval(autoCountUp,1000,2);
-    }
-    function autoCountUp(num) {
-      count = count + num;
     }
     function yamori(){
       if (count >= 200) {
@@ -42,10 +55,6 @@
         yamori_count++
         setInterval(autoCountUp,1000,4);
       }
-      setInterval(autoCountUp,1000,4);
-    }
-    function autoCountUp(nu) {
-      count = count + nu;
     }
     function ginnyuusizi(){
       if (count >= 300) {
@@ -54,11 +63,9 @@
         ginnyuusizi_count++
         setInterval(autoCountUp,1000,6);
       }
-      setInterval(autoCountUp,1000,6);
     }
-    function autoCountUp(nul) {
-      count = count + nul;
-    }
+
+
   </script>
       <p><span id="cookie_count"></span>まいまい</p>
       <img onclick="cookie_click()"src="food_kinako_mochi.png"alt="">
