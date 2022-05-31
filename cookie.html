@@ -3,6 +3,19 @@
   <head>
     <meta charset="utf-8">
     <title></title>
+    <style media="screen">
+    body{margin: 0;
+          height: 100vh;}
+      img{width:150px;}
+      .container{display:flex;
+                  height: 100vh;}
+      .item1{flex-grow: 30;
+              background-color: aquamarine;}
+      .item2{flex-grow: 40;
+              background-color: green;}
+      .item3{flex-grow: 30;
+              background-color: yellow;}
+    </style>
   </head>
   <body>
   <script type="text/javascript">
@@ -67,12 +80,21 @@
 
 
   </script>
-      <p><span id="cookie_count"></span>まいまい</p>
-      <img onclick="cookie_click()"src="food_kinako_mochi.png"alt="">
+  <div class="container">
+    <div class="item1">
+      <p><span id="cookie_count"></span>匹</p>
+      <img onclick="cookie_click()"src="bird_emu.png"alt="">
+    </div>
+    <div class="item2">
+      制作途中
+    </div>
+    <div class="item3">
       <ul>
         <li onclick="kyuubi()">きゅうび</li>
         <li onclick="yamori()">やもり</li>
         <li onclick="ginnyuusizi()">吟遊詩人</li>
       </ul>
+    </div>
+
   </body>
 </html>
