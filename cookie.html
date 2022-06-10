@@ -23,6 +23,10 @@
   </head>
   <body>
   <script type="text/javascript">
+  /*インターバル配列について*/
+  let event_ids = [];
+
+
   /*きなこもちのカウンタ*/
   let ls_count = localStorage.getItem("ls_count");
   if (ls_count) {
@@ -38,55 +42,97 @@
 
 
 
-    kyuubi_count = 0;
-    yamori_count = 0;
-    ginnyuusizi_count = 0;
+  kyuubi_count = 0;
+  yamori_count = 0;
+  ginnyuusizi_count = 0;
 
 
-    /*画面更新処理*/
-    setInterval(screen_update,100)
-    function screen_update(){
-      span = document.getElementById('cookie_count');
-      span.textContent = count;
-    }
+  /*画面更新処理*/
+  setInterval(screen_update,100)
+  function screen_update(){
+    span = document.getElementById('cookie_count');
+    span.textContent = count;
+  }
 
 
-    function autoCountUp(num) {
-      count = count + num;
-    }
+  function autoCountUp(num) {
+    count = count + num;
+  }
 
-    function cookie_click(){
-      var cookie_img = document.getElementById('cookie_img');
-        cookie_img.classList.remove('animate__animated','animate__bounceInUp');
-      void cookie_img.offsetWidth;
-      cookie_img.classList.add('animate__animated','animate__bounceInUp');
-      count++;
-    }
-    function kyuubi(){
-      if (count >= 100) {
-        count -= 100;
-        /*きゅうびの更新*/
-        kyuubi_count++;
-        setInterval(autoCountUp,1000,2);
-      }
-    }
-    function yamori(){
-      if (count >= 200) {
-        count -= 200;
-        /*やもりの更新*/
-        yamori_count++
-        setInterval(autoCountUp,1000,4);
-      }
-    }
-    function ginnyuusizi(){
-      if (count >= 300) {
-        count -= 300;
-        /*吟遊詩人の更新*/
-        ginnyuusizi_count++
-        setInterval(autoCountUp,1000,6);
-      }
-    }
+  function cookie_click(){
+    var cookie_img = document.getElementById('cookie_img');
+    cookie_img.classList.remove('animate__animated','animate__bounceInUp');
+    void cookie_img.offsetWidth;
+    cookie_img.classList.add('animate__animated','animate__bounceInUp');
+    count++;
+  }
 
+  function cursor(){
+    if(cookie_count >= 10){
+      cookie_count -= 10;
+      let r_id = setInterval(cookieClick,1000,1);
+      event_ids.push(r_id);
+    }
+  }
+
+  function sell_cursor(){
+    let r_id = event_ids.pop();
+    clearInterval(r_id);
+  }
+
+  function kyuubi(){
+    if (count >= 100) {
+      count -= 100;
+      /*きゅうびの更新*/
+      kyuubi_count++;
+
+      let r_id = setInterval(autoCountUp,1000,1);
+      event_ids.push(r_id);
+
+    }
+  }
+  function sell_kyuubi(){
+    let r_id = event_ids.pop();
+    clearInterval(r_id);
+  }
+
+  function yamori(){
+    if (count >= 200) {
+      count -= 200;
+      /*やもりの更新*/
+      yamori_count++
+
+      setInterval(autoCountUp,1000,3);
+      let r_id = setInterval(autoCountUp,1000,1);
+      event_ids.push(r_id);
+
+    }
+  }
+  function sell_yamori(){
+    let r_id = event_ids.pop();
+    clearInterval(r_id);
+  }
+
+
+  function ginnyuusizi(){
+    if (count >= 300) {
+      count -= 300;
+      /*吟遊詩人の更新*/
+      ginnyuusizi_count++
+      let r_id = setInterval(autoCountUp,1000,6);
+      event_ids.push(r_id);
+    }
+  }
+  function sell_ginnyuusizi(){
+    let r_id = event_ids.pop();
+    clearInterval(r_id);
+  }
+
+  function buildswitch(){
+    let target_element =document.getElementById('kyuuri');
+    target_element.style.display="none";
+
+  }
 
   </script>
   <div class="container">
@@ -98,12 +144,25 @@
       制作途中
     </div>
     <div class="item3">
+      <div id="kyuuri">
+    <span onclick="buildswitch()">購入</span>
       <ul>
         <li onclick="kyuubi()">きゅうび</li>
         <li onclick="yamori()">やもり</li>
         <li onclick="ginnyuusizi()">吟遊詩人</li>
       </ul>
     </div>
+  </div id="kyuuri">
 
+    <div class="item3">
+      <div id="mori">
+      売却
+      <ul>
+        <li onclick="sell_kyuubi()">きゅうび</li>
+        <li onclick="sell_yamori()">やもり</li>
+        <li onclick="sell_ginnyuusizi()">吟遊詩人</li>
+      </ul>
+    </div>
+  </div id="mori">
   </body>
 </html>
