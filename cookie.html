@@ -19,6 +19,9 @@
               background-color: green;}
       .item3{flex-grow: 30;
               background-color: yellow;}
+      #mori{
+        display: none;
+      }
     </style>
   </head>
   <body>
@@ -75,6 +78,8 @@
     }
   }
 
+
+
   function sell_cursor(){
     let r_id = event_ids.pop();
     clearInterval(r_id);
@@ -129,9 +134,16 @@
   }
 
   function buildswitch(){
-    let target_element =document.getElementById('kyuuri');
-    target_element.style.display="none";
+    let buy_element =document.getElementById('kyuuri');
+    let sell_element =document.getElementById('mori');
 
+    if(buy_element.style.display !="none"){
+      buy_element.style.display="none";
+      sell_element.style.display="block";
+    }else{
+      buy_element.style.display="block";
+      sell_element.style.display="none";
+    }
   }
 
   </script>
@@ -145,24 +157,21 @@
     </div>
     <div class="item3">
       <div id="kyuuri">
-    <span onclick="buildswitch()">購入</span>
-      <ul>
-        <li onclick="kyuubi()">きゅうび</li>
-        <li onclick="yamori()">やもり</li>
-        <li onclick="ginnyuusizi()">吟遊詩人</li>
-      </ul>
-    </div>
-  </div id="kyuuri">
-
-    <div class="item3">
+        <span onclick="buildswitch()">購入</span>
+        <ul>
+          <li onclick="kyuubi()">きゅうび</li>
+          <li onclick="yamori()">やもり</li>
+          <li onclick="ginnyuusizi()">吟遊詩人</li>
+        </ul>
+      </div>
       <div id="mori">
-      売却
-      <ul>
-        <li onclick="sell_kyuubi()">きゅうび</li>
-        <li onclick="sell_yamori()">やもり</li>
-        <li onclick="sell_ginnyuusizi()">吟遊詩人</li>
-      </ul>
+        <span onclick="buildswitch()">売却</span>
+        <ul>
+          <li onclick="sell_kyuubi()">きゅうび</li>
+          <li onclick="sell_yamori()">やもり</li>
+          <li onclick="sell_ginnyuusizi()">吟遊詩人</li>
+        </ul>
+      </div>
     </div>
-  </div id="mori">
   </body>
 </html>
