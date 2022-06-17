@@ -28,6 +28,36 @@
   <script type="text/javascript">
   /*インターバル配列について*/
   let event_ids = [];
+  class Building {
+    /*初期値の定義*/
+    constructor(time,num) {
+      this.event_ids = [];
+      this.interval_time=time;
+      this.add_num = num;
+    }
+    count_up(num){
+      count+=num
+    }
+    /*購入のメゾット*/
+    buy(){
+      let self = this;
+      let return_id = setInterval(function(){
+        self.count_up(self.add_num);
+      },1000);
+      this.event_ids.push(return_id);
+    }
+    /*売却のメゾット*/
+    sell(){
+      let return_id = this.event_ids.pop();
+      clearInterval(return_id);
+    }
+  }
+/*各施設のオブジェクトクラスから生成*/
+let kyuubi = new Building(100,1);
+//let yamori = new Building(100,3);
+//let ginnyuusizi = new Building(100,6);
+
+
 
 
   /*きなこもちのカウンタ*/
@@ -42,6 +72,7 @@
     console.log(count);
     localStorage.setItem("ls_count",count);
   }
+
 
 
 
@@ -85,10 +116,10 @@
     clearInterval(r_id);
   }
 
-  function kyuubi(){
+  /*function kyuubi(){
     if (count >= 100) {
       count -= 100;
-      /*きゅうびの更新*/
+      /*きゅうびの更新
       kyuubi_count++;
 
       let r_id = setInterval(autoCountUp,1000,1);
@@ -96,6 +127,7 @@
 
     }
   }
+  */
   function sell_kyuubi(){
     let r_id = event_ids.pop();
     clearInterval(r_id);
@@ -159,7 +191,7 @@
       <div id="kyuuri">
         <span onclick="buildswitch()">購入</span>
         <ul>
-          <li onclick="kyuubi()">きゅうび</li>
+          <li onclick="kyuubi.buy()">きゅうび</li>
           <li onclick="yamori()">やもり</li>
           <li onclick="ginnyuusizi()">吟遊詩人</li>
         </ul>
@@ -167,7 +199,7 @@
       <div id="mori">
         <span onclick="buildswitch()">売却</span>
         <ul>
-          <li onclick="sell_kyuubi()">きゅうび</li>
+          <li onclick="kyuubi.sell()">きゅうび</li>
           <li onclick="sell_yamori()">やもり</li>
           <li onclick="sell_ginnyuusizi()">吟遊詩人</li>
         </ul>
