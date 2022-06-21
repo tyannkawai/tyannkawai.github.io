@@ -30,153 +30,158 @@
   let event_ids = [];
   class Building {
     /*初期値の定義*/
-    constructor(time,num) {
+    constructor(time,num,cost) {
       this.event_ids = [];
       this.interval_time=time;
       this.add_num = num;
+      this.cost = cost;
     }
     count_up(num){
       count+=num
     }
     /*購入のメゾット*/
     buy(){
-      let self = this;
-      let return_id = setInterval(function(){
-        self.count_up(self.add_num);
-      },1000);
-      this.event_ids.push(return_id);
+      if(count >=this.cost){
+        count -= this.cost;
+        let self = this;
+        let return_id = setInterval(function(){
+          self.count_up(self.add_num);
+        },1000);
+        this.event_ids.push(return_id);
+      }
     }
     /*売却のメゾット*/
     sell(){
       let return_id = this.event_ids.pop();
       clearInterval(return_id);
-    }
-  }
-/*各施設のオブジェクトクラスから生成*/
-let kyuubi = new Building(100,1);
-//let yamori = new Building(100,3);
-//let ginnyuusizi = new Building(100,6);
-
-
-
-
-  /*きなこもちのカウンタ*/
-  let ls_count = localStorage.getItem("ls_count");
-  if (ls_count) {
-    count = parseInt(ls_count);
-  }else {
-    count=0;
-  }
-  setInterval(save_action,1000);
-  function save_action() {
-    console.log(count);
-    localStorage.setItem("ls_count",count);
-  }
-
-
-
-
-  kyuubi_count = 0;
-  yamori_count = 0;
-  ginnyuusizi_count = 0;
-
-
-  /*画面更新処理*/
-  setInterval(screen_update,100)
-  function screen_update(){
-    span = document.getElementById('cookie_count');
-    span.textContent = count;
-  }
-
-
-  function autoCountUp(num) {
-    count = count + num;
-  }
-
-  function cookie_click(){
-    var cookie_img = document.getElementById('cookie_img');
-    cookie_img.classList.remove('animate__animated','animate__bounceInUp');
-    void cookie_img.offsetWidth;
-    cookie_img.classList.add('animate__animated','animate__bounceInUp');
-    count++;
-  }
-
-  function cursor(){
-    if(cookie_count >= 10){
-      cookie_count -= 10;
-      let r_id = setInterval(cookieClick,1000,1);
-      event_ids.push(r_id);
-    }
-  }
-
-
-
-  function sell_cursor(){
-    let r_id = event_ids.pop();
-    clearInterval(r_id);
-  }
-
-  /*function kyuubi(){
-    if (count >= 100) {
-      count -= 100;
-      /*きゅうびの更新
-      kyuubi_count++;
-
-      let r_id = setInterval(autoCountUp,1000,1);
-      event_ids.push(r_id);
 
     }
   }
-  */
-  function sell_kyuubi(){
-    let r_id = event_ids.pop();
-    clearInterval(r_id);
-  }
+    /*各施設のオブジェクトクラスから生成*/
+    let kyuubi = new Building(100,1,100);
+    //let yamori = new Building(100,3);
+    //let ginnyuusizi = new Building(100,6);
 
-  function yamori(){
-    if (count >= 200) {
-      count -= 200;
-      /*やもりの更新*/
-      yamori_count++
 
-      setInterval(autoCountUp,1000,3);
-      let r_id = setInterval(autoCountUp,1000,1);
-      event_ids.push(r_id);
 
+
+    /*きなこもちのカウンタ*/
+    let ls_count = localStorage.getItem("ls_count");
+    if (ls_count) {
+      count = parseInt(ls_count);
+    }else {
+      count=0;
     }
-  }
-  function sell_yamori(){
-    let r_id = event_ids.pop();
-    clearInterval(r_id);
-  }
-
-
-  function ginnyuusizi(){
-    if (count >= 300) {
-      count -= 300;
-      /*吟遊詩人の更新*/
-      ginnyuusizi_count++
-      let r_id = setInterval(autoCountUp,1000,6);
-      event_ids.push(r_id);
+    setInterval(save_action,1000);
+    function save_action() {
+      console.log(count);
+      localStorage.setItem("ls_count",count);
     }
-  }
-  function sell_ginnyuusizi(){
-    let r_id = event_ids.pop();
-    clearInterval(r_id);
-  }
 
-  function buildswitch(){
-    let buy_element =document.getElementById('kyuuri');
-    let sell_element =document.getElementById('mori');
 
-    if(buy_element.style.display !="none"){
-      buy_element.style.display="none";
-      sell_element.style.display="block";
-    }else{
-      buy_element.style.display="block";
-      sell_element.style.display="none";
+
+
+    kyuubi_count = 0;
+    yamori_count = 0;
+    ginnyuusizi_count = 0;
+
+
+    /*画面更新処理*/
+    setInterval(screen_update,100)
+    function screen_update(){
+      span = document.getElementById('cookie_count');
+      span.textContent = count;
     }
-  }
+
+
+    function autoCountUp(num) {
+      count = count + num;
+    }
+
+    function cookie_click(){
+      var cookie_img = document.getElementById('cookie_img');
+      cookie_img.classList.remove('animate__animated','animate__bounceInUp');
+      void cookie_img.offsetWidth;
+      cookie_img.classList.add('animate__animated','animate__bounceInUp');
+      count++;
+    }
+
+    function cursor(){
+      if(cookie_count >= 10){
+        cookie_count -= 10;
+        let r_id = setInterval(cookieClick,1000,1);
+        event_ids.push(r_id);
+      }
+    }
+
+
+
+    function sell_cursor(){
+      let r_id = event_ids.pop();
+      clearInterval(r_id);
+    }
+    /*
+    function kyuubi(){
+      if (count >= 100) {
+        count -= 100;
+        //きゅうびの更新
+        kyuubi_count++;
+
+        let r_id = setInterval(autoCountUp,1000,1);
+        event_ids.push(r_id);
+
+      }
+    }*/
+
+    function sell_kyuubi(){
+      let r_id = event_ids.pop();
+      clearInterval(r_id);
+    }
+
+    function yamori(){
+      if (count >= 200) {
+        count -= 200;
+        /*やもりの更新*/
+        yamori_count++
+
+        setInterval(autoCountUp,1000,3);
+        let r_id = setInterval(autoCountUp,1000,1);
+        event_ids.push(r_id);
+
+      }
+    }
+    function sell_yamori(){
+      let r_id = event_ids.pop();
+      clearInterval(r_id);
+    }
+
+
+    function ginnyuusizi(){
+      if (count >= 300) {
+        count -= 300;
+        /*吟遊詩人の更新*/
+        ginnyuusizi_count++
+        let r_id = setInterval(autoCountUp,1000,6);
+        event_ids.push(r_id);
+      }
+    }
+    function sell_ginnyuusizi(){
+      let r_id = event_ids.pop();
+      clearInterval(r_id);
+    }
+
+    function buildswitch(){
+      let buy_element =document.getElementById('kyuuri');
+      let sell_element =document.getElementById('mori');
+
+      if(buy_element.style.display !="none"){
+        buy_element.style.display="none";
+        sell_element.style.display="block";
+      }else{
+        buy_element.style.display="block";
+        sell_element.style.display="none";
+      }
+    }
 
   </script>
   <div class="container">
