@@ -36,6 +36,9 @@
       this.add_num = num;
       this.cost = cost;
     }
+    get count(){
+      return this.interval_ids.length;
+    }
     count_up(num){
       count+=num
     }
@@ -59,8 +62,9 @@
   }
     /*各施設のオブジェクトクラスから生成*/
     let kyuubi = new Building(100,1,100);
-    //let yamori = new Building(100,3);
-    //let ginnyuusizi = new Building(100,6);
+    let yamori = new Building(100,3);
+    let ginnyuusizi = new Building(100,6);
+
 
 
 
@@ -91,6 +95,9 @@
     function screen_update(){
       span = document.getElementById('cookie_count');
       span.textContent = count;
+
+      var kyuubi_count=document.getElementById('kyuubi.buy');
+      kyuubi_count.textContent = kyuubi.count;
     }
 
 
@@ -106,69 +113,6 @@
       count++;
     }
 
-    function cursor(){
-      if(cookie_count >= 10){
-        cookie_count -= 10;
-        let r_id = setInterval(cookieClick,1000,1);
-        event_ids.push(r_id);
-      }
-    }
-
-
-
-    function sell_cursor(){
-      let r_id = event_ids.pop();
-      clearInterval(r_id);
-    }
-    /*
-    function kyuubi(){
-      if (count >= 100) {
-        count -= 100;
-        //きゅうびの更新
-        kyuubi_count++;
-
-        let r_id = setInterval(autoCountUp,1000,1);
-        event_ids.push(r_id);
-
-      }
-    }*/
-
-    function sell_kyuubi(){
-      let r_id = event_ids.pop();
-      clearInterval(r_id);
-    }
-
-    function yamori(){
-      if (count >= 200) {
-        count -= 200;
-        /*やもりの更新*/
-        yamori_count++
-
-        setInterval(autoCountUp,1000,3);
-        let r_id = setInterval(autoCountUp,1000,1);
-        event_ids.push(r_id);
-
-      }
-    }
-    function sell_yamori(){
-      let r_id = event_ids.pop();
-      clearInterval(r_id);
-    }
-
-
-    function ginnyuusizi(){
-      if (count >= 300) {
-        count -= 300;
-        /*吟遊詩人の更新*/
-        ginnyuusizi_count++
-        let r_id = setInterval(autoCountUp,1000,6);
-        event_ids.push(r_id);
-      }
-    }
-    function sell_ginnyuusizi(){
-      let r_id = event_ids.pop();
-      clearInterval(r_id);
-    }
 
     function buildswitch(){
       let buy_element =document.getElementById('kyuuri');
@@ -196,7 +140,7 @@
       <div id="kyuuri">
         <span onclick="buildswitch()">購入</span>
         <ul>
-          <li onclick="kyuubi.buy()">きゅうび</li>
+          <li onclick="kyuubi.buy()">きゅうび<span id ="kyuubi.buy"></li>
           <li onclick="yamori()">やもり</li>
           <li onclick="ginnyuusizi()">吟遊詩人</li>
         </ul>
@@ -205,8 +149,8 @@
         <span onclick="buildswitch()">売却</span>
         <ul>
           <li onclick="kyuubi.sell()">きゅうび</li>
-          <li onclick="sell_yamori()">やもり</li>
-          <li onclick="sell_ginnyuusizi()">吟遊詩人</li>
+          <li onclick="yamori.sell()">やもり</li>
+          <li onclick="ginnyuusizi.sell()">吟遊詩人</li>
         </ul>
       </div>
     </div>
