@@ -71,7 +71,7 @@
       <div id="timeline">
         <div class="tweet">
           <div class="icon">
-            <img src="13.png" alt="">
+            <img src="123456.png" alt="">
           </div>
           <div class="tweet_box">
             <div class="username">
@@ -80,7 +80,7 @@
               <span class= "date">2022/7/7 11:11</span>
             </div>
             <div class="text">
-              ここにツイートを出す
+              ここにピーナツ
             </div>
             <div class="sction">
               <span class="icon_chat">0</span>
@@ -94,7 +94,28 @@
         <script type="text/javascript">
           let timeline = document.getElementById('timeline')
           for(i = 0; i <20; i++){
-            timeline.innerHTML = timeline.innerHTML + "テスト<hr>"
+            let template =`  <div class="tweet">
+                <div class="icon">
+                  <img src="123456.png" alt="">
+                </div>
+                <div class="tweet_box">
+                  <div class="username">
+                    ちゃんかわい
+                    <span class="name">@tyan</span>
+                    <span class= "date">2022/7/7 11:11</span>
+                  </div>
+                  <div class="text">
+                    ここにピーナツ
+                  </div>
+                  <div class="sction">
+                    <span class="icon_chat">0</span>
+                    <span class="icon_res">0</span>
+                    <span class="icon_fav">0</span>
+                    <span class="icon_share">0</span>
+                  </div>
+                </div>
+              </div>`
+            timeline.innerHTML = timeline.innerHTML + template
           }
         </script>
   </body>
