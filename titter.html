@@ -22,7 +22,7 @@
 }
 .icon{width:70px;}
 .icon img{width:50px;border-radius: 50%; }
-.tweet_box{ flex: 1; }1
+.tweet_box{ flex: 1; }
 .username{font-weight: bold;}
 .name{padding-left:5px;
   font-weight: lighter;
@@ -71,7 +71,7 @@
       <div id="timeline">
         <div class="tweet">
           <div class="icon">
-            <img src="123456.png" alt="">
+            <img src="12345678910.png" alt="">
           </div>
           <div class="tweet_box">
             <div class="username">
@@ -93,33 +93,40 @@
       </div>
         <script type="text/javascript">
           let timeline = document.getElementById('timeline')
-          let array = ["こんにちは！",
-                      　"こんにちは",
-                        "こっこ"]
-          array.forEach((n) =>{
-            let template =`  <div class="tweet">
-                <div class="icon">
-                  <img src="123456.png" alt="">
-                </div>
-                <div class="tweet_box">
-                  <div class="username">
-                    ちゃんかわい
-                    <span class="name">@tyan</span>
-                    <span class= "date">2022/7/7 11:11</span>
-                  </div>
-                  <div class="text">
-                    ${n}
-                  </div>
-                  <div class="sction">
-                    <span class="icon_chat">0</span>
-                    <span class="icon_res">0</span>
-                    <span class="icon_fav">0</span>
-                    <span class="icon_share">0</span>
-                  </div>
-                </div>
-              </div>`
-            timeline.innerHTML = timeline.innerHTML + template
-          });
+          let array = [{username:"hiroto",date:"2022/7/7",text:"ピーナツあるます",fav_count:123},
+            　　　　　　{username:"hiroto",date:"2022/7/7",text:"こんにちは！",fav_count:17},
+                       {username:"hiroto",date:"2022/7/7",text:"こんにちは！",fav_count:6},
+                       {username:"hiroto",date:"2022/7/7",text:"こんにちは！",fav_count:12},
+                      {username:"hiroto",date:"2022/7/7",text:"アシマリかわいいイラスト",fav_count:77}]
+
+            updateTweet();
+            async function updateTweet(){
+              let array = await (await fetch("http://192.168.0.90/timeline.json")).json();
+              array.forEach((tweet) =>{
+                let template =`  <div class="tweet">
+                    <div class="icon">
+                      <img src="12345678910.png" alt="">
+                    </div>
+                    <div class="tweet_box">
+                      <div class="username">
+                        ちゃんかわい
+                        <span class="name">@tyan</span>
+                        <span class= "date">${tweet.date}</span>
+                      </div>
+                      <div class="text">
+                        ${tweet.text}
+                      </div>
+                      <div class="sction">
+                        <span class="icon_chat">0</span>
+                        <span class="icon_res">0</span>
+                        <span class="icon_fav">${tweet.fav_count}</span>
+                        <span class="icon_share">0</span>
+                      </div>
+                    </div>
+                  </div>`
+                timeline.innerHTML = timeline.innerHTML + template
+              });
+            }
         </script>
   </body>
 </html>
