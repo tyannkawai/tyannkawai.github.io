@@ -70,24 +70,10 @@
     <div class="container">
       <div id="timeline">
         <div class="tweet">
-          <div class="icon">
-            <img src="12345678910.png" alt="">
-          </div>
-          <div class="tweet_box">
-            <div class="username">
-              ちゃんかわい
-              <span class="name">@tyan</span>
-              <span class= "date">2022/7/7 11:11</span>
-            </div>
-            <div class="text">
-              ここにピーナツ
-            </div>
-            <div class="sction">
-              <span class="icon_chat">0</span>
-              <span class="icon_res">0</span>
-              <span class="icon_fav">0</span>
-              <span class="icon_share">0</span>
-            </div>
+
+          <input type="text" id="input_text" placeholder="ここに入力してね♡"/>
+          <button onclick="form_tweet()" type="submit">送信</button>
+
           </div>
         </div>
       </div>
@@ -99,17 +85,34 @@
                        {username:"hiroto",date:"2022/7/7",text:"こんにちは！",fav_count:12},
                       {username:"hiroto",date:"2022/7/7",text:"アシマリかわいいイラスト",fav_count:77}]
 
+          function from_tweet(){
+            let input_text = document.getElementById('input_text');
+            if(input_text.value != ""){
+              post_tweet(input_text.value,"tya","hiroto38");
+              input_text.value = "";
+            }
+          }
+
+          async function post_tweet(text,name,username){
+            let send_data = "?name=" + name +"&username=" + username +"&text=" + text
+            let res_data = await (await featch("https://192.168.0.90/tweet.rb" + send_data)).text;
+            if(res_data != "OK"){
+              alert(res_data);
+            }
+          };
+
             updateTweet();
+
             async function updateTweet(){
               let array = await (await fetch("http://192.168.0.90/timeline.json")).json();
               array.forEach((tweet) =>{
                 let template =`  <div class="tweet">
                     <div class="icon">
-                      <img src="12345678910.png" alt="">
+                      <img src="123456.png" alt="">
                     </div>
                     <div class="tweet_box">
                       <div class="username">
-                        ちゃんかわい
+                        ${tweet.username}
                         <span class="name">@tyan</span>
                         <span class= "date">${tweet.date}</span>
                       </div>
