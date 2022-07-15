@@ -85,17 +85,17 @@
                        {username:"hiroto",date:"2022/7/7",text:"こんにちは！",fav_count:12},
                       {username:"hiroto",date:"2022/7/7",text:"アシマリかわいいイラスト",fav_count:77}]
 
-          function from_tweet(){
+          function form_tweet(){
             let input_text = document.getElementById('input_text');
             if(input_text.value != ""){
-              post_tweet(input_text.value,"tya","hiroto38");
+              post_tweet(input_text.value,"tya","tyatya");
               input_text.value = "";
             }
           }
 
           async function post_tweet(text,name,username){
             let send_data = "?name=" + name +"&username=" + username +"&text=" + text
-            let res_data = await (await featch("https://192.168.0.90/tweet.rb" + send_data)).text;
+            let res_data = await (await fetch("http://192.168.0.90/tweet.rb" + send_data)).text();
             if(res_data != "OK"){
               alert(res_data);
             }
@@ -112,17 +112,17 @@
                     </div>
                     <div class="tweet_box">
                       <div class="username">
-                        ${tweet.username}
+                        ${escapeText(weet.username)}
                         <span class="name">@tyan</span>
-                        <span class= "date">${tweet.date}</span>
+                        <span class= "date">${escapeText(weet.date)}</span>
                       </div>
                       <div class="text">
-                        ${tweet.text}
+                        ${escapeText(tweet.text)}
                       </div>
                       <div class="sction">
                         <span class="icon_chat">0</span>
                         <span class="icon_res">0</span>
-                        <span class="icon_fav">${tweet.fav_count}</span>
+                        <span class="icon_fav">${escapeText(weet.fav_count)}</span>
                         <span class="icon_share">0</span>
                       </div>
                     </div>
@@ -130,6 +130,8 @@
                 timeline.innerHTML = timeline.innerHTML + template
               });
             }
+
+
         </script>
   </body>
 </html>
